@@ -1,10 +1,8 @@
 // src/Pages/EliminarRegistro.tsx
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../Firebase/Firebase";
-import { tematica } from "../Interfaces/interfaces";
 import { Button } from 'react-bootstrap';
-import ConfirmModal from '../Pages/Modal'; // Usar el modal actualizado
+import ConfirmModal from '../Pages/Modal'; // Usar el modal para confirmar eliminar o no eliminar
+import { tematica } from "../Interfaces/interfaces";
 
 const EliminarRegistro: React.FC = () => {
   const [tematicas, setTematicas] = useState<tematica[]>([]);
@@ -13,27 +11,31 @@ const EliminarRegistro: React.FC = () => {
   const [selectedName, setSelectedName] = useState<string>('');
 
   useEffect(() => {
-    const fetchTematicas = async () => {
-      const colRef = collection(db, "tematicas");
-      const querySnapshot = await getDocs(colRef);
-      let tematicasData: tematica[] = [];
-      querySnapshot.forEach((doc) => {
-        tematicasData.push({ id: doc.id, ...doc.data() } as tematica);
-      });
-      setTematicas(tematicasData);
+    const fetchTematicas = () => {
+      try {
+        // Obtiene los datos desde localStorage
+        const storedTematicas = JSON.parse(localStorage.getItem('tematicas') || '[]') as tematica[];
+        setTematicas(storedTematicas);
+      } catch (err) {
+        console.error('Error loading data: ', err);
+      }
     };
 
     fetchTematicas();
   }, []);
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     if (selectedId) {
       try {
-        await deleteDoc(doc(db, "tematicas", selectedId));
-        setTematicas(tematicas.filter((tematica) => tematica.id !== selectedId));
+        // Filtra las temáticas para eliminar la seleccionada
+        const updatedTematicas = tematicas.filter((tematica) => tematica.id !== selectedId);
+        setTematicas(updatedTematicas);
+
+        // Guarda los datos actualizados en localStorage
+        localStorage.setItem('tematicas', JSON.stringify(updatedTematicas));
         setShowModal(false);
       } catch (error) {
-        console.error("Error deleting document: ", error);
+        console.error("Error deleting data: ", error);
       }
     }
   };

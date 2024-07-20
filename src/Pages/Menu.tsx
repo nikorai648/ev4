@@ -17,7 +17,7 @@ const Menu: React.FC = () => {
           <Link to="/view-records">Visualizar lo registrado</Link>
         </li>
         <li className="list-group-item">
-            <Link to="/eliminate-records">Eliminar lo registrado</Link>
+          <Link to="/eliminate-records">Eliminar lo registrado</Link>
         </li>
         <li className="list-group-item">
           <Link to="/logout">Salir</Link>

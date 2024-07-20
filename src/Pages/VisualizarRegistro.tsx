@@ -1,6 +1,5 @@
+// src/Pages/VisualizarRegistro.tsx
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../Firebase/Firebase";
 import { tematica } from "../Interfaces/interfaces";
 
 const VisualizarRegistro: React.FC = () => {
@@ -8,15 +7,15 @@ const VisualizarRegistro: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchTematicas = async () => {
+    const fetchTematicas = () => {
       try {
-        const colRef = collection(db, "tematicas");
-        const querySnapshot = await getDocs(colRef);
-        let tematicasData: tematica[] = [];
-        querySnapshot.forEach((doc) => {
-          tematicasData.push({ id: doc.id, ...doc.data() } as tematica);
-        });
-        setTematicas(tematicasData);
+        // Obtener los datos desde localStorage
+        const storedTematicas = JSON.parse(localStorage.getItem('tematicas') || '[]') as tematica[];
+        if (storedTematicas.length === 0) {
+          setError('No hay datos disponibles.');
+        } else {
+          setTematicas(storedTematicas);
+        }
       } catch (err) {
         setError('No se pudieron cargar los datos. Inténtalo de nuevo más tarde.');
         console.error('Error loading data: ', err);

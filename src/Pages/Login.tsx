@@ -9,6 +9,7 @@ const Login: React.FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
+    // Verificar credenciales de inicio de sesión
     if (username === 'admin' && password === 'admin') {
       navigate('/menu');
     } else {

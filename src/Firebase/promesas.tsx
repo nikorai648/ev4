@@ -1,37 +1,28 @@
-import { addDoc, collection, getDocs } from "firebase/firestore";
-import { db } from "./Firebase"; 
 import { Usuario } from "../Interfaces/interfaces";
 
-// Función para registrar un nuevo usuario
-export const registrarUsuario = async (usuario: Usuario) => {
+// Funciónque registra un nuevo usuario en localStorage
+export const registrarUsuario = (usuario: Usuario) => {
   try {
-    await addDoc(collection(db, "usuarios"), usuario);
+    // Obtiene la lista actual de usuarios desde localStorage o inicializa un array vacío
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]') as Usuario[];
+    
+    // Agrega el nuevo usuario al array
+    usuarios.push(usuario);
+    
+    // Guarda el array actualizado en localStorage
+    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+    
     console.log("Usuario registrado con éxito.");
   } catch (error) {
     console.error("Error registrando usuario: ", error);
   }
 };
 
-// Función para obtener la lista de usuarios
+// Función que sirve para obtener la lista de usuarios desde localStorage
 export const obtenerUsuarios = async (): Promise<Usuario[]> => {
   try {
-    const colRef = collection(db, "usuarios");
-    const querySnapshot = await getDocs(colRef);
-    let usuarios: Usuario[] = [];
-    querySnapshot.forEach((doc) => {
-      const data = doc.data();
-      let usuario: Usuario = {
-        nombre: data.nombre,
-        apellido: data.apellido,
-        rut: data.rut,
-        telefonocasa: data.telefonocasa,
-        celular: data.celular,
-        edad: data.edad,
-        correo: data.correo,
-        fechanacimiento: data.fechanacimiento,
-      };
-      usuarios.push(usuario);
-    });
+    // Obtiene la lista de usuarios desde localStorage o inicializar un array vacío
+    const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]') as Usuario[];
     return usuarios;
   } catch (error) {
     console.error("Error obteniendo usuarios: ", error);

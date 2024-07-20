@@ -1,8 +1,6 @@
-// Registrotematica.tsx
+// src/Pages/RegistroTematica.tsx
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../Firebase/Firebase";
 import { tematica } from "../Interfaces/interfaces";
 
 interface Props {
@@ -11,26 +9,33 @@ interface Props {
 }
 
 const RegistroTematica: React.FC<Props> = ({ show, handleClose }) => {
-  const [tematica, setTematica] = useState<tematica>({
+  const [tematicaData, setTematicaData] = useState<tematica>({
     nombre: '',
     descripcion: ''
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setTematica({
-      ...tematica,
+    setTematicaData({
+      ...tematicaData,
       [e.target.name]: e.target.value
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      await addDoc(collection(db, "tematicas"), tematica);
-      handleClose();
-    } catch (error) {
-      console.error("Error adding document: ", error);
-    }
+
+    // Obtener el listado actual de temáticas desde localStorage
+    const tematicas = JSON.parse(localStorage.getItem('tematicas') || '[]') as tematica[];
+
+    // Agregar la nueva temática
+    tematicas.push(tematicaData);
+
+    // Guardar el listado actualizado en localStorage
+    localStorage.setItem('tematicas', JSON.stringify(tematicas));
+
+    // Limpiar el formulario y cerrar el modal
+    setTematicaData({ nombre: '', descripcion: '' });
+    handleClose();
   };
 
   return (
@@ -45,7 +50,7 @@ const RegistroTematica: React.FC<Props> = ({ show, handleClose }) => {
             <Form.Control
               type="text"
               name="nombre"
-              value={tematica.nombre}
+              value={tematicaData.nombre}
               onChange={handleChange}
               required
             />
@@ -55,7 +60,7 @@ const RegistroTematica: React.FC<Props> = ({ show, handleClose }) => {
             <Form.Control
               as="textarea"
               name="descripcion"
-              value={tematica.descripcion}
+              value={tematicaData.descripcion}
               onChange={handleChange}
               required
             />

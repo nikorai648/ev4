@@ -1,6 +1,5 @@
 // src/Pages/RegistrarUsuario.tsx
 import React, { useState } from 'react';
-import { registrarUsuario } from '../Firebase/promesas';
 import { Usuario } from "../Interfaces/interfaces";
 
 const RegistrarUsuario: React.FC = () => {
@@ -23,11 +22,18 @@ const RegistrarUsuario: React.FC = () => {
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await registrarUsuario(formData);
-      alert('Usuario registrado con éxito');
+      // Obtener el listado actual de usuarios desde localStorage
+      const usuarios = JSON.parse(localStorage.getItem('usuarios') || '[]') as Usuario[];
+
+      // Agregar el nuevo usuario
+      usuarios.push(formData);
+
+      // Guardar el listado actualizado en localStorage
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+
       // Limpiar el formulario después de registro exitoso
       setFormData({
         nombre: '',
@@ -39,6 +45,8 @@ const RegistrarUsuario: React.FC = () => {
         correo: '',
         fechanacimiento: '',
       });
+
+      alert('Usuario registrado con éxito');
     } catch (error) {
       console.error('Error registrando usuario: ', error);
     }
