@@ -5,27 +5,36 @@ import { Modal, Button } from 'react-bootstrap';
 interface Props {
   show: boolean;
   handleClose: () => void;
+  handleConfirm: () => void; // Función para manejar la confirmación
+  message: string; // Mensaje a mostrar en el modal
+  confirmButtonText?: string; // Texto del botón de confirmación
 }
 
-const RegistroTematicaModal: React.FC<Props> = ({ show, handleClose }) => {
+const ConfirmModal: React.FC<Props> = ({
+  show,
+  handleClose,
+  handleConfirm,
+  message,
+  confirmButtonText = "Confirmar"
+}) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Registrar Nueva Temática</Modal.Title>
+        <Modal.Title>Confirmación</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {/* Aquí va el contenido del formulario de registro de temática */}
+        {message}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
-          Cerrar
+          Cancelar
         </Button>
-        <Button variant="primary" onClick={handleClose}>
-          Guardar Cambios
+        <Button variant="primary" onClick={handleConfirm}>
+          {confirmButtonText}
         </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-export default RegistroTematicaModal;
+export default ConfirmModal;
