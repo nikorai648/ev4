@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { doc, getDoc, updateDoc } from 'firebase/firestore';
-import { db } from '../Firebase/Firebase';
 import { tematica } from '../Interfaces/interfaces';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 
 const ActualizarElementos: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Obtén el id del parámetro de la URL
+  const { id } = useParams<{ id: string }>();
   const [tematicaData, setTematicaData] = useState<tematica | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchTematica = async () => {
-      if (id) {
-        const docRef = doc(db, 'tematicas', id);
-        const docSnap = await getDoc(docRef);
-
-        if (docSnap.exists()) {
-          setTematicaData(docSnap.data() as tematica);
-        } else {
-          console.log('No such document!');
-        }
+    const fetchTematica = () => {
+      const tematicas = localStorage.getItem('tematicas');
+      if (tematicas) {
+        const parsedTematicas: tematica[] = JSON.parse(tematicas);
+        const foundTematica = parsedTematicas.find(t => t.id === id);
+        setTematicaData(foundTematica || null);
       }
     };
 
@@ -36,18 +31,20 @@ const ActualizarElementos: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (id && tematicaData) {
       try {
-        const docRef = doc(db, 'tematicas', id);
-        // Asegúrate de que los datos están en el formato correcto
-        const updatedData = {
-          nombre: tematicaData.nombre,
-          descripcion: tematicaData.descripcion,
-        };
-        await updateDoc(docRef, updatedData);
-        alert('Temática actualizada con éxito');
+        let tematicas = localStorage.getItem('tematicas');
+        if (tematicas) {
+          const parsedTematicas: tematica[] = JSON.parse(tematicas);
+          const updatedTematicas = parsedTematicas.map(t =>
+            t.id === id ? tematicaData : t
+          );
+          localStorage.setItem('tematicas', JSON.stringify(updatedTematicas));
+          alert('Temática actualizada con éxito');
+          navigate('/visualizar-registro'); // Redirige después de actualizar
+        }
       } catch (error) {
         console.error('Error updating document: ', error);
       }
