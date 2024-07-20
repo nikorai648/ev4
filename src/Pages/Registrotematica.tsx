@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
-import { Tematica } from "../Interfaces/interfaces";
+import { tematica } from "../Interfaces/interfaces";
 
 interface Props {
   show: boolean;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 const RegistroTematica: React.FC<Props> = ({ show, handleClose }) => {
-  const [tematica, setTematica] = useState<Tematica>({
+  const [tematica, setTematica] = useState<tematica>({
     nombre: '',
     descripcion: ''
   });

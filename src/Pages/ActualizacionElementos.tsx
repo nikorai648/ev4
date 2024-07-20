@@ -1,20 +1,20 @@
 // EliminarRegistro.tsx
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../Firebase/firebase";
-import { Tematica } from "../Interfaces/interfaces";
+import { db } from "../Firebase/Firebase";
+import { tematica } from "../Interfaces/interfaces";
 import { Button } from 'react-bootstrap';
 
 const EliminarRegistro: React.FC = () => {
-  const [tematicas, setTematicas] = useState<Tematica[]>([]);
+  const [tematicas, setTematicas] = useState<tematica[]>([]);
 
   useEffect(() => {
     const fetchTematicas = async () => {
       const colRef = collection(db, "tematicas");
       const querySnapshot = await getDocs(colRef);
-      let tematicasData: Tematica[] = [];
+      let tematicasData: tematica[] = [];
       querySnapshot.forEach((doc) => {
-        tematicasData.push({ id: doc.id, ...doc.data() } as Tematica);
+        tematicasData.push({ id: doc.id, ...doc.data() } as tematica);
       });
       setTematicas(tematicasData);
     };

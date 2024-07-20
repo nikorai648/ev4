@@ -9,7 +9,7 @@ export interface Usuario {
     fechanacimiento: string;
   }
 // Interfaces/interfaces.ts
-export interface Tematica {
+export interface tematica {
   id?: string;
   nombre: string;
   descripcion: string;

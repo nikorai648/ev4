@@ -1,31 +1,31 @@
-// Modal.tsx
+// src/Components/Modal.tsx
 import React from 'react';
-import { Modal as BootstrapModal, Button } from 'react-bootstrap';
+import { Modal, Button } from 'react-bootstrap';
 
-interface ModalProps {
+interface Props {
   show: boolean;
   handleClose: () => void;
-  title: string;
-  children: React.ReactNode;
-  footer?: React.ReactNode;
 }
 
-const Modal: React.FC<ModalProps> = ({ show, handleClose, title, children, footer }) => {
+const RegistroTematicaModal: React.FC<Props> = ({ show, handleClose }) => {
   return (
-    <BootstrapModal show={show} onHide={handleClose}>
-      <BootstrapModal.Header closeButton>
-        <BootstrapModal.Title>{title}</BootstrapModal.Title>
-      </BootstrapModal.Header>
-      <BootstrapModal.Body>
-        {children}
-      </BootstrapModal.Body>
-      {footer && (
-        <BootstrapModal.Footer>
-          {footer}
-        </BootstrapModal.Footer>
-      )}
-    </BootstrapModal>
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Registrar Nueva Temática</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        {/* Aquí va el contenido del formulario de registro de temática */}
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Cerrar
+        </Button>
+        <Button variant="primary" onClick={handleClose}>
+          Guardar Cambios
+        </Button>
+      </Modal.Footer>
+    </Modal>
   );
 };
 
-export default Modal;
+export default RegistroTematicaModal;
