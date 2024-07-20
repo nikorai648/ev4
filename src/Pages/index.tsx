@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client'; // Importa createRoot desde react-dom/client
-import App from './app';
+import ReactDOM from 'react-dom/client';
+import App from './app'; // Asegúrate de que la ruta sea correcta
 
-// Creacion de una raíz para la aplicación
 const rootElement = document.getElementById('root');
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
