@@ -25,8 +25,23 @@ const RegistrarUsuario: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await registrarUsuario(formData);
-    alert('Usuario registrado con éxito');
+    try {
+      await registrarUsuario(formData);
+      alert('Usuario registrado con éxito');
+      // Limpiar el formulario después de registro exitoso
+      setFormData({
+        nombre: '',
+        apellido: '',
+        rut: '',
+        telefonocasa: 0,
+        celular: 0,
+        edad: 0,
+        correo: '',
+        fechanacimiento: '',
+      });
+    } catch (error) {
+      console.error('Error registrando usuario: ', error);
+    }
   };
 
   return (
