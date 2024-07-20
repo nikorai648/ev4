@@ -8,4 +8,10 @@ export interface Usuario {
     correo: string;
     fechanacimiento: string;
   }
+// Interfaces/interfaces.ts
+export interface Tematica {
+  id?: string;
+  nombre: string;
+  descripcion: string;
+}
   
