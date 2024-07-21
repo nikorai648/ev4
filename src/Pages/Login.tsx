@@ -1,3 +1,4 @@
+// src/Pages/Login.tsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ const Login: React.FC = () => {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Verifica las credenciales del inicio de sesión
+    // Verificar credenciales de inicio de sesión
     if (username === 'admin' && password === 'admin') {
       navigate('/menu');
     } else {

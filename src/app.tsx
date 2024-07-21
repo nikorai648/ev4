@@ -1,3 +1,4 @@
+// src/App.tsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RegistrarUsuario from './Pages/RegistrarUsuario';
@@ -6,8 +7,8 @@ import ActualizarElementos from './Pages/ActualizacionElementos';
 import EliminarRegistro from './Pages/EliminarRegistro';
 import Login from './Pages/Login';
 import Menu from './Pages/Menu';
-import RegistroTematica from './Pages/Registrotematica'; 
-import { Button } from 'react-bootstrap'; 
+import RegistroTematica from './Pages/Registrotematica';
+import { Button } from 'react-bootstrap';
 
 const App: React.FC = () => {
   const [showRegistroTematica, setShowRegistroTematica] = useState(false);
@@ -26,7 +27,7 @@ const App: React.FC = () => {
         <Route path="/actualizar-elementos/:id" element={<ActualizarElementos />} />
         <Route path="/eliminar-registro" element={<EliminarRegistro />} />
       </Routes>
-      {/* Agrega el boton para abrir el modal, si es necesario para que se active*/}
+      {/* Agrega el botón para abrir el modal, si es necesario */}
       <Button onClick={handleShowRegistroTematica}>Abrir Modal</Button>
     </Router>
   );
