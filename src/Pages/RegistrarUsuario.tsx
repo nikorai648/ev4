@@ -1,6 +1,8 @@
 // src/Pages/RegistrarUsuario.tsx
 import React, { useState } from 'react';
 import { Usuario } from "../Interfaces/interfaces";
+import { createUser } from "../services/localStorageUtils";
+
 
 const RegistrarUsuario: React.FC = () => {
   const [formData, setFormData] = useState<Usuario>({

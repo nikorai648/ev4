@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { tematica } from "../Interfaces/interfaces";
+import { postTematica } from '../services/apiUtils';; // Asegúrate de importar la función correcta
 
 interface Props {
   show: boolean;
@@ -21,21 +22,18 @@ const RegistroTematica: React.FC<Props> = ({ show, handleClose }) => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    try {
+      // Envía los datos de la temática a la API
+      await postTematica('API_URL/tematicas', tematicaData);
 
-    // Obtiene el listado actual de las tematicas desde localStorage
-    const tematicas = JSON.parse(localStorage.getItem('tematicas') || '[]') as tematica[];
-
-    // Agrega la nueva temática
-    tematicas.push(tematicaData);
-
-    // Guarda el listado actualizado  en localStorage
-    localStorage.setItem('tematicas', JSON.stringify(tematicas));
-
-    // Limpia el formulario y cierra el modal
-    setTematicaData({ nombre: '', descripcion: '' });
-    handleClose();
+      // Limpia el formulario y cierra el modal
+      setTematicaData({ nombre: '', descripcion: '' });
+      handleClose();
+    } catch (error) {
+      console.error('Error registrando temática: ', error);
+    }
   };
 
   return (

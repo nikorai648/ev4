@@ -11,18 +11,27 @@ interface Props{
     fechanacimiento: string;
 }
 
-export const Perfil: React.FC<Props> = ({ nombre, apellido, edad,rut,telefonocasa,celular,correo,fechanacimiento }) => {
-    return (
-      <div>
-        <p>Nombre: {nombre}</p>
-        <p>Apellido: {apellido}</p>
-        <p>Edad: {edad}</p>
-        <p>Rut: {rut}</p>
-        <p>Telefono de Casa: {telefonocasa}</p>
-        <p>Celular: {celular}</p>
-        <p>Correo: {correo}</p>
-        <p>Fecha de Nacimiento: {fechanacimiento}</p>
-        {edad > 18 && <p>Eres mayor de edad</p>}
-      </div>
-    );
-  };
+export const Perfil: React.FC<Props> = ({
+  nombre,
+  apellido,
+  rut,
+  telefonocasa,
+  celular,
+  edad,
+  correo,
+  fechanacimiento
+}) => {
+  return (
+    <div>
+      <p><strong>Nombre:</strong> {nombre}</p>
+      <p><strong>Apellido:</strong> {apellido}</p>
+      <p><strong>Edad:</strong> {edad}</p>
+      <p><strong>Rut:</strong> {rut}</p>
+      <p><strong>Teléfono de Casa:</strong> {telefonocasa}</p>
+      <p><strong>Celular:</strong> {celular}</p>
+      <p><strong>Correo:</strong> {correo}</p>
+      <p><strong>Fecha de Nacimiento:</strong> {fechanacimiento}</p>
+      {edad > 18 && <p><strong>Eres mayor de edad</strong></p>}
+    </div>
+  );
+};

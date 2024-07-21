@@ -1,6 +1,6 @@
 // src/Pages/About.tsx
 import React, { useEffect, useState } from 'react';
-import { fetchData } from '../services/api'; // Ajusta la ruta si es necesario
+import { fetchData } from '../services/apiUtils'; // Importa la función correctamente
 
 const About: React.FC = () => {
   const [data, setData] = useState<any>(null);
@@ -12,7 +12,7 @@ const About: React.FC = () => {
         const result = await fetchData('https://jsonplaceholder.typicode.com/posts/1'); // URL de ejemplo
         setData(result);
       } catch (error) {
-        setError(error.message);
+        setError((error as Error).message);
       }
     };
 
