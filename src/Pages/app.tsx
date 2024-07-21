@@ -26,7 +26,7 @@ const App: React.FC = () => {
         <Route path="/actualizar-elementos/:id" element={<ActualizarElementos />} />
         <Route path="/eliminar-registro" element={<EliminarRegistro />} />
       </Routes>
-      {/* Agrega el botón para abrir el modal, si es necesario */}
+      {/* Agrega el boton para abrir el modal, si es necesario para que se active*/}
       <Button onClick={handleShowRegistroTematica}>Abrir Modal</Button>
     </Router>
   );

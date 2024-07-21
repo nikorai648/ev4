@@ -24,16 +24,16 @@ const RegistroTematica: React.FC<Props> = ({ show, handleClose }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Obtener el listado actual de temáticas desde localStorage
+    // Obtiene el listado actual de las tematicas desde localStorage
     const tematicas = JSON.parse(localStorage.getItem('tematicas') || '[]') as tematica[];
 
-    // Agregar la nueva temática
+    // Agrega la nueva temática
     tematicas.push(tematicaData);
 
-    // Guardar el listado actualizado en localStorage
+    // Guarda el listado actualizado  en localStorage
     localStorage.setItem('tematicas', JSON.stringify(tematicas));
 
-    // Limpiar el formulario y cerrar el modal
+    // Limpia el formulario y cierra el modal
     setTematicaData({ nombre: '', descripcion: '' });
     handleClose();
   };
