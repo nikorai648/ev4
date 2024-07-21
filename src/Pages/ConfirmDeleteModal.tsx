@@ -1,32 +1,32 @@
+// src/Pages/Modal.tsx
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 
-interface Props {
+interface ConfirmModalProps {
   show: boolean;
   handleClose: () => void;
   handleConfirm: () => void;
-  itemName: string; // Nombre del ítem para mostrar en el modal
+  message: string;
+  confirmButtonText: string;
 }
 
-const ConfirmDeleteModal: React.FC<Props> = ({ show, handleClose, handleConfirm, itemName }) => {
+const ConfirmModal: React.FC<ConfirmModalProps> = ({ show, handleClose, handleConfirm, message, confirmButtonText }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Confirmar Eliminación</Modal.Title>
+        <Modal.Title>Confirmación</Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        ¿Estás seguro de que deseas eliminar "{itemName}"? Esta acción no se puede deshacer.
-      </Modal.Body>
+      <Modal.Body>{message}</Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Cancelar
         </Button>
         <Button variant="danger" onClick={handleConfirm}>
-          Eliminar
+          {confirmButtonText}
         </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-export default ConfirmDeleteModal;
+export default ConfirmModal;

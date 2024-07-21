@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { tematica } from "../Interfaces/interfaces";
-import { postTematica } from '../services/apiUtils';; // Asegúrate de importar la función correcta
+import { postTematica } from '../services/apiUtils';
 
 interface Props {
   show: boolean;

@@ -1,8 +1,7 @@
 // src/Pages/RegistrarUsuario.tsx
 import React, { useState } from 'react';
 import { Usuario } from "../Interfaces/interfaces";
-import { createUser } from "../services/localStorageUtils";
-
+import { Button, Form } from 'react-bootstrap';
 
 const RegistrarUsuario: React.FC = () => {
   const [formData, setFormData] = useState<Usuario>({
@@ -15,6 +14,7 @@ const RegistrarUsuario: React.FC = () => {
     correo: '',
     fechanacimiento: '',
   });
+  const [error, setError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -50,6 +50,7 @@ const RegistrarUsuario: React.FC = () => {
 
       alert('Usuario registrado con éxito');
     } catch (error) {
+      setError('No se pudo registrar el usuario. Inténtalo de nuevo más tarde.');
       console.error('Error registrando usuario: ', error);
     }
   };
@@ -57,97 +58,92 @@ const RegistrarUsuario: React.FC = () => {
   return (
     <div className="container mt-5">
       <h2>Registrar Usuario</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="nombre" className="form-label">Nombre</label>
-          <input
+      {error && <div className="alert alert-danger">{error}</div>}
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="nombre">Nombre</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             id="nombre"
             value={formData.nombre}
             onChange={handleChange}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="apellido" className="form-label">Apellido</label>
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="apellido">Apellido</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             id="apellido"
             value={formData.apellido}
             onChange={handleChange}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="rut" className="form-label">RUT</label>
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="rut">RUT</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
             id="rut"
             value={formData.rut}
             onChange={handleChange}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="telefonocasa" className="form-label">Teléfono de Casa</label>
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="telefonocasa">Teléfono de Casa</Form.Label>
+          <Form.Control
             type="number"
-            className="form-control"
             id="telefonocasa"
             value={formData.telefonocasa}
             onChange={handleChange}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="celular" className="form-label">Celular</label>
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="celular">Celular</Form.Label>
+          <Form.Control
             type="number"
-            className="form-control"
             id="celular"
             value={formData.celular}
             onChange={handleChange}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="edad" className="form-label">Edad</label>
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="edad">Edad</Form.Label>
+          <Form.Control
             type="number"
-            className="form-control"
             id="edad"
             value={formData.edad}
             onChange={handleChange}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="correo" className="form-label">Correo</label>
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="correo">Correo</Form.Label>
+          <Form.Control
             type="email"
-            className="form-control"
             id="correo"
             value={formData.correo}
             onChange={handleChange}
             required
           />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="fechanacimiento" className="form-label">Fecha de Nacimiento</label>
-          <input
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="fechanacimiento">Fecha de Nacimiento</Form.Label>
+          <Form.Control
             type="date"
-            className="form-control"
             id="fechanacimiento"
             value={formData.fechanacimiento}
             onChange={handleChange}
             required
           />
-        </div>
-        <button type="submit" className="btn btn-primary">Registrar</button>
-      </form>
+        </Form.Group>
+        <Button type="submit" variant="primary">
+          Registrar
+        </Button>
+      </Form>
     </div>
   );
 };
