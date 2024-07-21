@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import RegistrarUsuario from '../Pages/RegistrarUsuario';
-import VisualizarRegistros from '../Pages/VisualizarRegistro';
-import ActualizarElementos from '../Pages/ActualizacionElementos';
-import EliminarRegistro from '../Pages/EliminarRegistro';
-import Login from '../Pages/Login';
-import Menu from '../Pages/Menu';
-import RegistroTematica from '../Pages/Registrotematica'; 
+import RegistrarUsuario from './Pages/RegistrarUsuario';
+import VisualizarRegistros from './Pages/VisualizarRegistro';
+import ActualizarElementos from './Pages/ActualizacionElementos';
+import EliminarRegistro from './Pages/EliminarRegistro';
+import Login from './Pages/Login';
+import Menu from './Pages/Menu';
+import RegistroTematica from './Pages/Registrotematica'; 
 import { Button } from 'react-bootstrap'; 
 
 const App: React.FC = () => {
