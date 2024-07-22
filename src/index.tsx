@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './app';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Importa Bootstrap CSS
+import './index.css'; // Importa el CSS global
 
 const rootElement = document.getElementById('root');
 if (rootElement) {

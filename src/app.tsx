@@ -16,7 +16,7 @@ const App: React.FC = () => {
   const handleCloseRegistroTematica = () => setShowRegistroTematica(false);
 
   return (
-    <div style={{ backgroundColor: 'lightgreen', minHeight: '100vh' }}>
+    <div style={{ backgroundColor: 'lightgreen', minHeight: '100vh', color: 'black' }}>
       <div className="container">
         <h1>Aprender a Cocinar</h1>
         <Router>
