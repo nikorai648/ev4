@@ -1,5 +1,6 @@
 // src/utils/apiUtils.ts
-import {  tematica} from "../Interfaces/interfaces";
+
+import { tematica, Usuario } from "../Interfaces/interfaces"; // Mueve todas las importaciones al inicio del archivo
 
 // Función para enviar datos a una API
 export const postTematica = async (url: string, data: tematica) => {
@@ -22,9 +23,6 @@ export const postTematica = async (url: string, data: tematica) => {
 };
 
 // Función para obtener datos de una API
-// src/services/apiUtils.ts
-import { Usuario } from '../Interfaces/interfaces';
-
 export const fetchData = async (url: string): Promise<Usuario[]> => {
   try {
     const response = await fetch(url);
@@ -38,7 +36,6 @@ export const fetchData = async (url: string): Promise<Usuario[]> => {
     throw error;
   }
 };
-
 
 // Función para actualizar datos en una API
 export const putData = async (url: string, data: any): Promise<any> => {
@@ -74,3 +71,4 @@ export const deleteData = async (url: string): Promise<void> => {
     throw error;
   }
 };
+
